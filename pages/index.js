@@ -14,8 +14,14 @@ export default function MainPage() {
 
       <header>
         <nav>
-          <Link href={'/contacts'}><a>Контакты</a></Link>
-          <Link href={'/gallery'}><a>Галерея</a></Link>
+          <ul>
+            <li>
+              <Link href={'/contacts'}><a>Контакты</a></Link>
+            </li>
+            <li>
+              <Link href={'/gallery'}><a>Галерея</a></Link>
+            </li>
+          </ul>
         </nav>
       </header>
 
