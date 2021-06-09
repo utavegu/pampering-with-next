@@ -1,5 +1,6 @@
 import {useRouter} from 'next/router'
 import {useState, useEffect} from 'react'
+import Link from 'next/link'
 
 // MEMO ещё
 
@@ -36,6 +37,7 @@ export default function Photo() {
 
   return (
     <>
+      <Link href={'/gallery'}><a>Обратно в галерею</a></Link>
       <img src={photo.url} alt={photo.title} />
     </>
   )
