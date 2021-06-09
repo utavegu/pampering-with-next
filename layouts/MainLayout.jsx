@@ -20,7 +20,7 @@ export function MainLayout({ children, title }) {
 
       <div className={styles.container}>
 
-        <header>
+        <header className="main-header">
           <nav>
             <ul>
               <li>
@@ -47,7 +47,24 @@ export function MainLayout({ children, title }) {
       </div>
 
       <style jsx>{`
-      
+        .main-header {
+          width: 100%;
+          border-bottom: 1px solid #eaeaea;
+        }
+
+        .main-header ul {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-around;
+        }
+
+        .main-header li {
+          margin: 10px;
+          text-transform: uppercase;
+        }
       `}</style>
     </>
   )
