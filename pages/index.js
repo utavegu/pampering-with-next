@@ -19,7 +19,7 @@ export default function MainPage() {
               <Link href={'/contacts'}><a>Контакты</a></Link>
             </li>
             <li>
-              <Link href={'/gallery'}><a>Галерея</a></Link>
+              <Link href='/gallery'><a>Галерея</a></Link>
             </li>
           </ul>
         </nav>
