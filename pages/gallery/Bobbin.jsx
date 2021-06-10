@@ -22,7 +22,7 @@ function Bobbin({photo}) {
 }
 
 Bobbin.propTypes = {
-
+  photo: PropTypes.object.isRequired
 }
 
 export default Bobbin

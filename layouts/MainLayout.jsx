@@ -3,9 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/MainPage.module.css'
 
-
-// export function MainLayout({ children, title:string = 'Next App' }) {
-// Лучше сделай дефолт пропс 
+// Сделать дефолт пропс или параметры по умолчанию для тайтла
 export function MainLayout({ children, title }) {
   return (
     <>

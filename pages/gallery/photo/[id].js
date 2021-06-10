@@ -1,6 +1,7 @@
 import {useRouter} from 'next/router'
 import {useState, useEffect} from 'react'
 import Link from 'next/link'
+import Preloader from '../../../components/Preloader'
 
 // Так как это не боевой проект, обработку ошибок загрузки осознанно опускаю
 export default function Photo({photo: serverPhoto}) {
@@ -20,10 +21,10 @@ export default function Photo({photo: serverPhoto}) {
   }, [])
 
   if (!photo) {
-    return <p>Загрузка...</p>
+    return <Preloader />
   }
 
-  console.log("RERENDER PHOTO PAGE")
+  console.log("RERENDER PHOTO PAGE") // Это я так проверяю, нет ли лишних перерисовок компонента
 
   return (
     <>
