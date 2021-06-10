@@ -2,36 +2,28 @@ import {useRouter} from 'next/router'
 import {useState, useEffect} from 'react'
 import Link from 'next/link'
 
-/*
-function fetchPhoto(url) {
-  const [photo, setPhoto] = useState({})
-	useEffect(
-		() => {
-			const fetchData = async () => {
-					const response = await fetch(url);
-          if (response.ok) {
-            const data = await response.json();
-					  setPhoto(data);
-          } else {
-            console.dir(response);
-            console.log("Ошибка HTTP: " + response.status);
-          }
-			};
-			fetchData();
-		},
-		[url]
-	);
-	return photo;
-} 
-*/
+// Так как это не боевой проект, обработку ошибок загрузки осознанно опускаю
+export default function Photo({photo: serverPhoto}) {
+  const router = useRouter()
+  const [photo, setPhoto] = useState(serverPhoto)
+  
+  useEffect(() => {
+    async function load() {
+      const response = await fetch(`https://jsonplaceholder.typicode.com/photos/${router.query.id}`)
+      const data = await response.json()
+      setPhoto(data)
+    }
 
-// Обработчик ошибки и прелоадер! В первом случае на место имг должна показываться заглушка
+    if (!serverPhoto) {
+      load()
+    }
+  }, [])
 
-export default function Photo({photo}) {
-  // const router = useRouter();
-  // const photo = fetchPhoto(`https://jsonplaceholder.typicode.com/photos/${router.query.id}`)
+  if (!photo) {
+    return <p>Загрузка...</p>
+  }
 
-  console.log("RERENDER")
+  console.log("RERENDER PHOTO PAGE")
 
   return (
     <>
@@ -42,7 +34,10 @@ export default function Photo({photo}) {
   )
 }
 
-Photo.getInitialProps = async ({query}) => {
+Photo.getInitialProps = async ({query, req}) => {
+  if (!req) {
+    return {photo: null}
+  }
   const response = await fetch(`https://jsonplaceholder.typicode.com/photos/${query.id}`)
   const photo = await response.json()
 

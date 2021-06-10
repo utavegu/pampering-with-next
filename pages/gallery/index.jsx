@@ -3,35 +3,50 @@ import { MainLayout } from '../../layouts/MainLayout'
 import { useState, useEffect } from 'react'
 import Bobbin from './Bobbin'
 
-export default function Gallery({photos}) {
+// Так как это не боевой проект, обработку ошибок загрузки осознанно опускаю
+export default function Gallery({photos: serverPhotos}) {
+  const [photos, setPhotos] = useState(serverPhotos)
+  
+  useEffect(() => {
+    async function load() {
+      let photos = []
+      for (let i = 1; i < 11; i++) {
+        const response = await fetch(`https://jsonplaceholder.typicode.com/photos/${i}`)
+        const data = await response.json()
+        photos.push(data)
+      }
+      setPhotos(photos)
+    }
 
-  // const [uploadedPhotos, setUploadedPhotos] = useState([]);
-  // Так как проект не боевой, часть скрипта для прелоадера и ошибки опускаю
-  // Но вообще в идеале сделай, как основные задачи решишь. Недолго же.
+    if (!serverPhotos) {
+      load()
+    }
+  }, [])
 
-  // Так... при подгрузке (для простоты сделай пока кнопкой) нужно все уже подгруженые фото не затирать, а пушить в массив (и неплохо бы уточнить момент с кэшированием).
-  // И скорее всего это должен быть глобальный стейт, чтобы при переходе между страницами уже подгруженные фото не просерались.
+  if (!photos) {
+    return <MainLayout><p>Загрузка...</p></MainLayout>
+  }
 
-  console.log(photos);
+  console.log("RERENDER GALLERY")
 
   return (
-    
     <MainLayout title="Галерея">
       <h1>ГАЛЕРЕЯ</h1>
       <Link href={'/'}><a>На главную</a></Link>
       <ul style={{display: "flex", flexWrap: "wrap", listStyle: "none"}}> 
        {photos.map(photo =>  <Bobbin photo={photo} key={photo.id} />)}
       </ul>
-
-      
     </MainLayout>
   )
 }
 
-Gallery.getInitialProps = async () => {
+Gallery.getInitialProps = async ({req}) => {
+  if (!req) {
+    return {photos: null}
+  }
   let photos = []
+    // Данный сервер не поддерживает offset и limit, потому так
     for (let i = 1; i < 11; i++) {
-      // Трай-кэтч прикрути сюда. А прелоадер можешь отрисовывать на пустой массив пхотоз
       const response = await fetch(`https://jsonplaceholder.typicode.com/photos/${i}`)
       const json = await response.json()
       photos.push(json)
