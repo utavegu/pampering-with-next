@@ -4,6 +4,7 @@
   2) Не грузить фотографию, если она уже загружена
   3) Возможно, имеет смысл их отрисовывать по одной, по мере загрузки, а не ждать весь массив
   4) Поразбираться с местным компонентом Image. Вроде крутая штука для оптимизации
+  5) DRY и никаких магических значений!
 */
 
 import Link from 'next/link'
@@ -17,6 +18,7 @@ export default function Gallery({photos: serverPhotos}) {
   const [photos, setPhotos] = useState(serverPhotos)
   
   useEffect(() => {
+    // Вот тут промис ол напрашивается, похоже
     async function load() {
       let photos = []
       for (let i = 1; i < 11; i++) {
