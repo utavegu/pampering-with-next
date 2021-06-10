@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { MainLayout } from '../../layouts/MainLayout'
 import { useState, useEffect } from 'react'
-import Bobbin from './Bobbin';
+import Bobbin from './Bobbin'
 
 export default function Gallery({photos}) {
 
@@ -29,12 +29,12 @@ export default function Gallery({photos}) {
 }
 
 Gallery.getInitialProps = async () => {
-  let photos = [];
+  let photos = []
     for (let i = 1; i < 11; i++) {
       // Трай-кэтч прикрути сюда. А прелоадер можешь отрисовывать на пустой массив пхотоз
       const response = await fetch(`https://jsonplaceholder.typicode.com/photos/${i}`)
       const json = await response.json()
-      photos.push(json);
+      photos.push(json)
     }
 
   return {photos}

@@ -5,7 +5,7 @@ function Bobbin({photo}) {
   return (
     <>
       <li>
-        <Link href={`/gallery/[id]`} as={`/gallery/${photo.id}`}>
+        <Link href={`/gallery/photo/[id]`} as={`/gallery/photo/${photo.id}`}>
           <a>
             <img src={photo.thumbnailUrl} />
           </a>
