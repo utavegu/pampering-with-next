@@ -29,8 +29,23 @@ export default function Photo({photo: serverPhoto}) {
   return (
     <>
       <h1>{photo.title}</h1>
-      <img src={photo.url} alt={photo.title} />
+      <div className="img-wrapper">
+        <img src={photo.url} alt={photo.title} />
+      </div>
       <Link href={'/gallery'}><a>Обратно в галерею</a></Link>
+      <style jsx>{`
+        .img-wrapper {
+          width: 600px;
+          height: 600px;
+          margin: 0;
+        }
+        
+        .img-wrapper img {
+          width: 600px;
+          height: 600px;
+          object-fit: contain; 
+        }
+      `}</style>
     </>
   )
 }

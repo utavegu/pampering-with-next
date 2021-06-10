@@ -6,14 +6,23 @@ function Bobbin({photo}) {
     <>
       <li>
         <Link href={`/gallery/photo/[id]`} as={`/gallery/photo/${photo.id}`}>
-          <a>
+          <a className="img-wrapper">
             <img src={photo.thumbnailUrl} />
           </a>
         </Link>
       </li>
 
       <style jsx>{`
-        img {
+        .img-wrapper {
+          width: 150px;
+          height: 150px;
+          margin: 0;
+        }
+        
+        .img-wrapper img {
+          width: 150px;
+          height: 150px;
+          object-fit: contain; 
           display: block;
         }
       `}</style>
